@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (keep structure, ignore large files)
+*.pkl
+*.joblib
+
+# Models (tracked separately)
+models/*.pkl
+models/*.joblib
+
+# Jupyter
+.ipynb_checkpoints/

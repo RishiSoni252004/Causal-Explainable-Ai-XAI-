@@ -1,0 +1,82 @@
+# Causal Explainable AI for Trustworthy Intelligent Systems
+
+A Python and Streamlit project that demonstrates baseline machine-learning
+modelling on a synthetic student-performance dataset, enriched with
+Explainable AI (XAI) and Causal Analysis, wrapped in an interactive
+multi-page dashboard.
+
+## Project Description
+This project bridges the gap between predictive power and causal understanding.
+By starting with baseline ML models, we introduce SHAP for explainability and 
+Causal Graphs for understanding relationships. We also provide a Counterfactual 
+Simulator to test what-if scenarios and understand the boundaries of correlations 
+versus true causations.
+
+## Features (Current Completed)
+- **Dataset Generation & Analysis:** Auto-generates a realistic synthetic dataset (1,000 records) representing student features (study hours, attendance, sleep, etc.) and a PASS/FAIL target.
+- **Machine Learning Models:** Baseline Logistic Regression and Random Forest models with automatic evaluation and best-model selection based on F1 Score.
+- **Explainable AI:** Global feature importance from the model and SHAP, plus interactive individual prediction explanations with natural language narratives.
+- **Causal Analysis:** Interactive visualization of the assumed causal structure via NetworkX, highlighting the difference between correlation and causation.
+- **Counterfactual Simulator:** A what-if engine to interactively tweak inputs and instantly compare the original versus modified predictions and confidences.
+
+## Future Improvements
+- DoWhy causal inference
+- Causal effect estimation
+- Fairness and bias analysis
+- Trustworthiness scoring
+- Advanced counterfactual explanations
+- Robustness testing
+
+## Technologies Used
+- **Python 3**
+- **Streamlit** for the web dashboard and UI
+- **Scikit-Learn** for machine learning models and preprocessing
+- **SHAP** for explainable AI
+- **NetworkX** for causal graph modeling
+- **Pandas & NumPy** for data manipulation
+- **Matplotlib & Seaborn** for data visualization
+
+## Project Structure
+```
+causal-xai-project/
+│
+├── data/
+│   └── student_data.csv        # Auto-generated synthetic dataset
+├── models/                     # Best model + preprocessing artefacts
+├── src/
+│   ├── __init__.py
+│   ├── causal_analysis.py      # Causal graph logic and descriptions
+│   ├── counterfactual.py       # Counterfactual simulation engine
+│   ├── data_preprocessing.py   # Loading, encoding, scaling, splitting
+│   ├── explainability.py       # SHAP global and local explanations
+│   ├── model_training.py       # Training, evaluation, model selection
+│   └── utils.py                # Dataset generation & helpers
+│
+├── app.py                      # Streamlit dashboard
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+## Installation Instructions
+1. Clone or download the project.
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate        # macOS / Linux
+   # venv\Scripts\activate         # Windows
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## How to Run
+Once installed and activated, start the Streamlit application:
+```bash
+streamlit run app.py
+```
+The dashboard will open automatically in your browser. Navigate through the sidebar to explore the different modules.
+
+## License
+This project is for educational and research purposes.
