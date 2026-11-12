@@ -1,0 +1,12 @@
+name,age,score,grade,hours_studied,passed
+Alice,20,88.5,A,5.0,True
+Bob,22,55.0,C,2.5,False
+Charlie,21,72.3,B,4.0,True
+Diana,23,91.0,A,6.5,True
+Ethan,19,40.2,D,1.0,False
+Fiona,24,63.8,C,3.0,False
+George,20,78.9,B,4.5,True
+Hannah,22,50.0,D,2.0,False
+Ivan,21,,B,3.5,True
+Jane,25,95.0,A,7.0,True
+Ivan,21,,B,3.5,True

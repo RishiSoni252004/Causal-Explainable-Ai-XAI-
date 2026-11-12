@@ -7,4 +7,6 @@ seaborn
 joblib
 shap
 networkx
+plotly
+google-genai
 

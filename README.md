@@ -49,6 +49,7 @@ causal-xai-project/
 │   ├── counterfactual.py       # Counterfactual simulation engine
 │   ├── data_preprocessing.py   # Loading, encoding, scaling, splitting
 │   ├── explainability.py       # SHAP global and local explanations
+│   ├── llm_service.py          # Google Gemini API backend for XAI Agent
 │   ├── model_training.py       # Training, evaluation, model selection
 │   └── utils.py                # Dataset generation & helpers
 │
@@ -70,6 +71,47 @@ causal-xai-project/
    ```bash
    pip install -r requirements.txt
    ```
+
+## Google Gemini API Configuration (Explainable AI Agent)
+The Explainable AI Agent backend uses the official **Google Gen AI Python SDK** (`google-genai`) with models supported on the free tier (default: `gemini-2.5-flash`, with fallbacks to `gemini-2.0-flash` and `gemini-1.5-flash`).
+
+### 1. Obtain an API Key
+Generate a free API key from Google AI Studio:
+- Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+- Click **Create API Key** and copy your key.
+
+### 2. Configure Your Key
+Choose either of the two methods below:
+
+#### Option A: Local Environment Variable (Recommended for terminal / local development)
+```bash
+# macOS / Linux (in terminal or add to ~/.zshrc or ~/.bashrc)
+export GEMINI_API_KEY="your-gemini-api-key-here"
+
+# Windows (Command Prompt)
+set GEMINI_API_KEY=your-gemini-api-key-here
+
+# Windows (PowerShell)
+$env:GEMINI_API_KEY="your-gemini-api-key-here"
+```
+
+#### Option B: Streamlit Secrets (Recommended for Streamlit apps & deployment)
+Create a `.streamlit/secrets.toml` file in the project root (a template is available in `.streamlit/secrets.toml.example`):
+```toml
+# .streamlit/secrets.toml
+GEMINI_API_KEY = "your-gemini-api-key-here"
+```
+*(Note: `.streamlit/secrets.toml` is included in `.gitignore` to prevent leaking keys.)*
+
+### 3. Test API Connection
+Run the connection diagnostic test anytime to verify connectivity:
+```bash
+python -m src.llm_service
+```
+Or run the automated unit tests:
+```bash
+python test_llm_service.py
+```
 
 ## How to Run
 Once installed and activated, start the Streamlit application:

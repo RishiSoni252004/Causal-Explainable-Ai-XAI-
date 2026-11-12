@@ -92,6 +92,8 @@ def save_dataset(df: pd.DataFrame, path: str) -> str:
 
     Returns the absolute path of the saved file.
     """
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    dir_name = os.path.dirname(path)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
     df.to_csv(path, index=False)
     return os.path.abspath(path)

@@ -27,5 +27,10 @@ Thumbs.db
 models/*.pkl
 models/*.joblib
 
+# Secrets & Environment Variables
+.env
+*.env
+.streamlit/secrets.toml
+
 # Jupyter
 .ipynb_checkpoints/
