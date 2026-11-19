@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Startup script for Causal Explainable AI (XAI) Platform
+# ==============================================================================
+
+set -e
+
+# Resolve script directory (handles symlinks and any current working directory)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+PROJECT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+# If invoked from parent directory, descend into causal-xai-project if present
+if [ -d "$PROJECT_DIR/causal-xai-project" ] && [ ! -f "$PROJECT_DIR/app.py" ]; then
+  PROJECT_DIR="$PROJECT_DIR/causal-xai-project"
+fi
+
+cd "$PROJECT_DIR"
+
+echo "================================================================="
+echo "  🛡️  Causal Explainable AI Platform (XAI)"
+echo "================================================================="
+echo "📍 Directory: $PROJECT_DIR"
+
+# Detect best python/streamlit executable
+STREAMLIT_BIN=""
+
+if [ -f "$PROJECT_DIR/venv/bin/streamlit" ]; then
+  STREAMLIT_BIN="$PROJECT_DIR/venv/bin/streamlit"
+elif [ -f "/Library/Frameworks/Python.framework/Versions/3.14/bin/streamlit" ]; then
+  STREAMLIT_BIN="/Library/Frameworks/Python.framework/Versions/3.14/bin/streamlit"
+elif command -v streamlit >/dev/null 2>&1; then
+  STREAMLIT_BIN="$(command -v streamlit)"
+elif command -v python3 >/dev/null 2>&1 && python3 -m streamlit --help >/dev/null 2>&1; then
+  STREAMLIT_BIN="python3 -m streamlit"
+fi
+
+if [ -z "$STREAMLIT_BIN" ]; then
+  echo "❌ Error: Streamlit was not found in venv, system Python, or PATH."
+  echo "👉 Please install dependencies with: pip install -r requirements.txt"
+  exit 1
+fi
+
+echo "🐍 Streamlit:  $STREAMLIT_BIN"
+
+# Check if port 8501 is already in use by a stale process
+OLD_PID=$(lsof -ti :8501 2>/dev/null || true)
+if [ -n "$OLD_PID" ]; then
+  echo "⚠️  Port 8501 was in use (PID: $OLD_PID). Cleaning up..."
+  kill -9 $OLD_PID 2>/dev/null || true
+  sleep 1
+fi
+
+echo "🚀 Starting server..."
+echo "🌐 Local URL:  http://localhost:8501"
+echo "================================================================="
+echo ""
+
+exec "$STREAMLIT_BIN" run app.py "$@"
